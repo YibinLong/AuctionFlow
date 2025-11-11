@@ -60,7 +60,7 @@ HiBid's current checkout process is outdated and inefficient, leading to delays 
 - **Accessibility Needs:** Compliance with WCAG 2.1 for users with disabilities
 
 ## 9. Technical Requirements
-- **System Architecture:** Full-stack development using Vue.js, Nuxt.js, Node.js, Fastify
+- **System Architecture:** Full-stack development using Next.js, Node.js, Fastify
 - **Integrations:** PostgreSQL for current data, FoxPro and SQL Server for legacy systems
 - **APIs:** Payment processing API integration
 - **Data Requirements:** Use mock data for development; ensure compatibility with existing databases
