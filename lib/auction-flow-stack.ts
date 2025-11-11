@@ -40,13 +40,8 @@ frontend:
       // This ensures /admin/ routes to /admin/index.html instead of 404
       customRules: [
         {
-          source: '/admin/',
-          target: '/admin/index.html',
-          status: '200'
-        },
-        {
           source: '/admin/<*>',
-          target: '/admin/<*>.html',
+          target: '/admin/<*>',
           status: '200'
         }
       ],
