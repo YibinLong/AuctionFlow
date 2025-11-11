@@ -36,10 +36,20 @@ frontend:
   cache:
     paths:
       - node_modules/**/*`,
-      // For static-exported Next.js sites, do NOT use a SPA catch-all rewrite to /index.html.
-      // That rewrite would break deep links like /admin/ which should resolve to /admin/index.html.
-      // Leaving customRules empty lets Amplify serve the correct static files by path.
-      customRules: [],
+      // Add specific rewrite rule for admin routes to handle trailing slashes
+      // This ensures /admin/ routes to /admin/index.html instead of 404
+      customRules: [
+        {
+          source: '/admin/',
+          target: '/admin/index.html',
+          status: '200'
+        },
+        {
+          source: '/admin/<*>',
+          target: '/admin/<*>.html',
+          status: '200'
+        }
+      ],
       environmentVariables: [
         {
           name: 'NODE_ENV',
