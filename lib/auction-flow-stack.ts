@@ -36,15 +36,9 @@ frontend:
   cache:
     paths:
       - node_modules/**/*`,
-      // Add specific rewrite rule for admin routes to handle trailing slashes
-      // This ensures /admin/ routes to /admin/index.html instead of 404
-      customRules: [
-        {
-          source: '/admin/<*>',
-          target: '/admin/<*>',
-          status: '200'
-        }
-      ],
+      // For static-exported Next.js sites, use empty customRules
+      // This lets Amplify serve static files directly and handle trailing slashes properly
+      customRules: [],
       environmentVariables: [
         {
           name: 'NODE_ENV',
