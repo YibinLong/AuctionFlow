@@ -17,7 +17,7 @@ export class AuctionFlowStack extends cdk.Stack {
     // Create Amplify app
     const amplifyApp = new amplify.CfnApp(this, 'AuctionFlowApp', {
       name: 'auction-flow',
-      description: 'AuctionFlow - Modern Auction Checkout System',
+      description: 'AuctionFlow - Modern Auction Checkout System v2',
       platform: 'WEB',
       repository: process.env.GITHUB_REPO || 'https://github.com/YibinLong/AuctionFlow',
       buildSpec: `version: 1
@@ -25,6 +25,7 @@ frontend:
   phases:
     preBuild:
       commands:
+        - rm -rf node_modules package-lock.json
         - npm ci --legacy-peer-deps
     build:
       commands:

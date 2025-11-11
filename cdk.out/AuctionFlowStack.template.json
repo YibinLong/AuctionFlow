@@ -1,0 +1,206 @@
+{
+ "Resources": {
+  "AuctionFlowApp": {
+   "Type": "AWS::Amplify::App",
+   "Properties": {
+    "BuildSpec": "version: 1\nfrontend:\n  phases:\n    preBuild:\n      commands:\n        - rm -rf node_modules package-lock.json\n        - npm ci --legacy-peer-deps\n    build:\n      commands:\n        - npm run build\n  artifacts:\n    baseDirectory: out\n    files:\n      - '**/*'\n  cache:\n    paths:\n      - node_modules/**/*",
+    "CustomRules": [],
+    "Description": "AuctionFlow - Modern Auction Checkout System v2",
+    "EnvironmentVariables": [
+     {
+      "Name": "NODE_ENV",
+      "Value": "production"
+     }
+    ],
+    "Name": "auction-flow",
+    "OauthToken": {
+     "Fn::Join": [
+      "",
+      [
+       "{{resolve:secretsmanager:arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":secretsmanager:us-west-2:971422717446:secret:github-token:SecretString:::}}"
+      ]
+     ]
+    },
+    "Platform": "WEB",
+    "Repository": "https://github.com/YibinLong/AuctionFlow",
+    "Tags": [
+     {
+      "Key": "Environment",
+      "Value": "Production"
+     },
+     {
+      "Key": "Project",
+      "Value": "AuctionFlow"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/AuctionFlowApp"
+   }
+  },
+  "MainBranch": {
+   "Type": "AWS::Amplify::Branch",
+   "Properties": {
+    "AppId": {
+     "Fn::GetAtt": [
+      "AuctionFlowApp",
+      "AppId"
+     ]
+    },
+    "BranchName": "main",
+    "EnableAutoBuild": true,
+    "EnablePerformanceMode": true,
+    "EnablePullRequestPreview": true,
+    "Stage": "PRODUCTION"
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/MainBranch"
+   }
+  },
+  "DevBranch": {
+   "Type": "AWS::Amplify::Branch",
+   "Properties": {
+    "AppId": {
+     "Fn::GetAtt": [
+      "AuctionFlowApp",
+      "AppId"
+     ]
+    },
+    "BranchName": "develop",
+    "EnableAutoBuild": true,
+    "EnablePullRequestPreview": true,
+    "Stage": "DEVELOPMENT"
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/DevBranch"
+   }
+  },
+  "AmplifyBuildRole1497EA74": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "amplify.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/AdministratorAccess-Amplify"
+       ]
+      ]
+     }
+    ],
+    "RoleName": "AmplifyAuctionFlowBuildRole"
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/AmplifyBuildRole/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/yXJSwrCMBSF4bV0fnOtEQcO1QUIcQES0xRvmxd5KBKydxscfT/ncOT8gOMgP4mpaWWGnljvWaoVhE6+RKVh+x5V2mBo/mK9zu4cAmxconTq1YCkxSq80X3sttbrVnIouYHzk8Yl7d58xP0Jj8OSiFgsLpPVKP7+AJXD9uyIAAAA"
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "AmplifyAppId": {
+   "Description": "Amplify App ID",
+   "Value": {
+    "Fn::GetAtt": [
+     "AuctionFlowApp",
+     "AppId"
+    ]
+   }
+  },
+  "AmplifyDomainUrl": {
+   "Description": "Amplify Production App URL",
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "https://main.",
+      {
+       "Fn::GetAtt": [
+        "AuctionFlowApp",
+        "DefaultDomain"
+       ]
+      }
+     ]
+    ]
+   }
+  },
+  "AmplifyDevDomainUrl": {
+   "Description": "Amplify Development App URL",
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "https://develop.",
+      {
+       "Fn::GetAtt": [
+        "AuctionFlowApp",
+        "DefaultDomain"
+       ]
+      }
+     ]
+    ]
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

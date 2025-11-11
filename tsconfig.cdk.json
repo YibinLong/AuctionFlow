@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "ES2018",
+    "lib": [
+      "es2018"
+    ],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "outDir": "./cdk.out",
+    "rootDir": "./",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": [
+    "bin/**/*",
+    "lib/**/*",
+    "cdk/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.test.ts",
+    "**/*.spec.ts"
+  ]
+}

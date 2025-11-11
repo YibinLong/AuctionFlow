@@ -5,6 +5,16 @@ export const metadata = {
   description: "Your purchase confirmation and invoice",
 }
 
+export async function generateStaticParams() {
+  // For static export, return sample invoice IDs
+  // In production, this should return valid invoice IDs
+  return [
+    { id: 'sample1' },
+    { id: 'sample2' },
+    { id: 'sample3' }
+  ]
+}
+
 export default function InvoicePage({ params }: { params: { id: string } }) {
   return <InvoiceContent invoiceId={params.id} />
 }

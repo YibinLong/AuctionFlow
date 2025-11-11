@@ -1,0 +1,21 @@
+{
+  "version": "48.0.0",
+  "files": {
+    "a576d23c52d5cb9f26ef95b4b1472c5bfc0f69d97c0b04ccbd544c41ec6a2168": {
+      "displayName": "AuctionFlowStack Template",
+      "source": {
+        "path": "AuctionFlowStack.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "971422717446-us-west-2-6cf3626c": {
+          "bucketName": "cdk-hnb659fds-assets-971422717446-us-west-2",
+          "objectKey": "a576d23c52d5cb9f26ef95b4b1472c5bfc0f69d97c0b04ccbd544c41ec6a2168.json",
+          "region": "us-west-2",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::971422717446:role/cdk-hnb659fds-file-publishing-role-971422717446-us-west-2"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}
