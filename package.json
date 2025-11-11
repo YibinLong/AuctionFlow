@@ -76,6 +76,8 @@
     "aws-cdk-lib": "^2.223.0",
     "constructs": "^10.4.3",
     "context7-mcp-server": "^1.0.1",
+    "eslint": "^9.39.1",
+    "eslint-config-next": "^16.0.1",
     "postcss": "^8.5",
     "tailwindcss": "^4.1.9",
     "tw-animate-css": "1.3.3",
