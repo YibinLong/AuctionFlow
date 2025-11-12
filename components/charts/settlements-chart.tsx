@@ -138,11 +138,11 @@ export function SettlementsChart({
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
-                  data={statusBreakdown}
+                  data={statusBreakdown as any[]}
                   cx="50%"
                   cy="50%"
                   labelLine={false}
-                  label={({ status, count, percent }) => `${status}: ${count} (${(percent * 100).toFixed(0)}%)`}
+                  label={(entry: any) => `${entry.status}: ${entry.count} (${(entry.percent * 100).toFixed(0)}%)`}
                   outerRadius={70}
                   fill="#8884d8"
                   dataKey="count"
