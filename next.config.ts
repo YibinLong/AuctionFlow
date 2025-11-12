@@ -6,7 +6,8 @@ const nextConfig: NextConfig = {
     unoptimized: true,
   },
   assetPrefix: process.env.NODE_ENV === 'production' ? undefined : undefined,
-  distDir: '.next',
+  distDir: 'out',
+  output: 'export',
 };
 
 export default nextConfig;
