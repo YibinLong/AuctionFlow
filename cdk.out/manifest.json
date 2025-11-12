@@ -1,28 +1,28 @@
 {
   "version": "48.0.0",
   "artifacts": {
-    "AuctionFlowStack.assets": {
+    "SimpleAuctionFlowStack.assets": {
       "type": "cdk:asset-manifest",
       "properties": {
-        "file": "AuctionFlowStack.assets.json",
+        "file": "SimpleAuctionFlowStack.assets.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
       }
     },
-    "AuctionFlowStack": {
+    "SimpleAuctionFlowStack": {
       "type": "aws:cloudformation:stack",
       "environment": "aws://971422717446/us-west-2",
       "properties": {
-        "templateFile": "AuctionFlowStack.template.json",
+        "templateFile": "SimpleAuctionFlowStack.template.json",
         "terminationProtection": false,
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::971422717446:role/cdk-hnb659fds-deploy-role-971422717446-us-west-2",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::971422717446:role/cdk-hnb659fds-cfn-exec-role-971422717446-us-west-2",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-971422717446-us-west-2/a576d23c52d5cb9f26ef95b4b1472c5bfc0f69d97c0b04ccbd544c41ec6a2168.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-971422717446-us-west-2/2593769f09bcd375be57a88bc828cf8719bc923eee7c59c6257306e84ff7839d.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
-          "AuctionFlowStack.assets"
+          "SimpleAuctionFlowStack.assets"
         ],
         "lookupRole": {
           "arn": "arn:${AWS::Partition}:iam::971422717446:role/cdk-hnb659fds-lookup-role-971422717446-us-west-2",
@@ -31,71 +31,131 @@
         }
       },
       "dependencies": [
-        "AuctionFlowStack.assets"
+        "SimpleAuctionFlowStack.assets"
       ],
       "metadata": {
-        "/AuctionFlowStack/AuctionFlowApp": [
+        "/SimpleAuctionFlowStack/AuctionFlowUserPool/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuctionFlowUserPool74215018"
+          }
+        ],
+        "/SimpleAuctionFlowStack/AuctionFlowUserPoolClient/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuctionFlowUserPoolClient365F131E"
+          }
+        ],
+        "/SimpleAuctionFlowStack/AuctionFlowStorage/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuctionFlowStorage3BC608C8"
+          }
+        ],
+        "/SimpleAuctionFlowStack/AuctionFlowStorage/Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuctionFlowStoragePolicy7781319C"
+          }
+        ],
+        "/SimpleAuctionFlowStack/AuctionFlowStorage/AutoDeleteObjectsCustomResource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuctionFlowStorageAutoDeleteObjectsCustomResource294C8C40"
+          }
+        ],
+        "/SimpleAuctionFlowStack/Custom::S3AutoDeleteObjectsCustomResourceProvider": [
+          {
+            "type": "aws:cdk:is-custom-resource-handler-customResourceProvider",
+            "data": true
+          }
+        ],
+        "/SimpleAuctionFlowStack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Role": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092"
+          }
+        ],
+        "/SimpleAuctionFlowStack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Handler": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F"
+          }
+        ],
+        "/SimpleAuctionFlowStack/AuctionFlowApp": [
           {
             "type": "aws:cdk:logicalId",
             "data": "AuctionFlowApp"
           }
         ],
-        "/AuctionFlowStack/MainBranch": [
+        "/SimpleAuctionFlowStack/MainBranch": [
           {
             "type": "aws:cdk:logicalId",
             "data": "MainBranch"
           }
         ],
-        "/AuctionFlowStack/DevBranch": [
+        "/SimpleAuctionFlowStack/DevBranch": [
           {
             "type": "aws:cdk:logicalId",
             "data": "DevBranch"
           }
         ],
-        "/AuctionFlowStack/AmplifyAppId": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "AmplifyAppId"
-          }
-        ],
-        "/AuctionFlowStack/AmplifyDomainUrl": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "AmplifyDomainUrl"
-          }
-        ],
-        "/AuctionFlowStack/AmplifyDevDomainUrl": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "AmplifyDevDomainUrl"
-          }
-        ],
-        "/AuctionFlowStack/AmplifyBuildRole/Resource": [
+        "/SimpleAuctionFlowStack/AmplifyBuildRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "AmplifyBuildRole1497EA74"
           }
         ],
-        "/AuctionFlowStack/CDKMetadata/Default": [
+        "/SimpleAuctionFlowStack/AmplifyAppId": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AmplifyAppId"
+          }
+        ],
+        "/SimpleAuctionFlowStack/AmplifyDomainUrl": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AmplifyDomainUrl"
+          }
+        ],
+        "/SimpleAuctionFlowStack/UserPoolId": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "UserPoolId"
+          }
+        ],
+        "/SimpleAuctionFlowStack/UserPoolClientId": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "UserPoolClientId"
+          }
+        ],
+        "/SimpleAuctionFlowStack/StorageBucketName": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "StorageBucketName"
+          }
+        ],
+        "/SimpleAuctionFlowStack/CDKMetadata/Default": [
           {
             "type": "aws:cdk:logicalId",
             "data": "CDKMetadata"
           }
         ],
-        "/AuctionFlowStack/BootstrapVersion": [
+        "/SimpleAuctionFlowStack/BootstrapVersion": [
           {
             "type": "aws:cdk:logicalId",
             "data": "BootstrapVersion"
           }
         ],
-        "/AuctionFlowStack/CheckBootstrapVersion": [
+        "/SimpleAuctionFlowStack/CheckBootstrapVersion": [
           {
             "type": "aws:cdk:logicalId",
             "data": "CheckBootstrapVersion"
           }
         ]
       },
-      "displayName": "AuctionFlowStack"
+      "displayName": "SimpleAuctionFlowStack"
     },
     "Tree": {
       "type": "cdk:tree",

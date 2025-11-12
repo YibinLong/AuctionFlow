@@ -1,0 +1,80 @@
+config:
+  target: 'http://localhost:3000'
+  phases:
+    - duration: 60
+      arrivalRate: 5
+      name: "Warm up"
+    - duration: 120
+      arrivalRate: 10
+      name: "Load test - 50 concurrent users"
+    - duration: 60
+      arrivalRate: 20
+      name: "Stress test - 100 concurrent users"
+    - duration: 60
+      arrivalRate: 5
+      name: "Cool down"
+
+  processor: "./load-test-processor.js"
+
+scenarios:
+  - name: "Checkout Flow"
+    weight: 40
+    flow:
+      - get:
+          url: "/checkout"
+          capture:
+            - json: "$.csrf_token"
+              as: "csrf_token"
+      - post:
+          url: "/api/calculations/preview"
+          json:
+            items:
+              - lot_id: "LOT-001"
+                title: "Test Item 1"
+                quantity: 1
+                unit_price: 100.00
+            buyers_premium_rate: 0.10
+            tax_rate: 0.0825
+          capture:
+            - json: "$.grand_total"
+              as: "calculated_total"
+
+  - name: "Invoice Viewing"
+    weight: 35
+    flow:
+      - get:
+          url: "/invoice/{{ $randomString() }}"
+          expect:
+            - statusCode: 200
+
+  - name: "API Health Check"
+    weight: 15
+    flow:
+      - get:
+          url: "/api/health"
+          expect:
+            - statusCode: 200
+
+  - name: "Admin Dashboard"
+    weight: 10
+    flow:
+      - get:
+          url: "/admin"
+          headers:
+            Authorization: "Bearer mock:admin@example.com:admin"
+          expect:
+            - statusCode: 200
+
+  - name: "Payment Processing"
+    weight: 5
+    flow:
+      - get:
+          url: "/payment"
+      - post:
+          url: "/api/payments/create-session"
+          json:
+            invoice_id: "{{ $randomString() }}"
+            amount: 100.00
+            currency: "USD"
+          expect:
+            - statusCode: 200

@@ -1,5 +1,1065 @@
 {
  "Resources": {
+  "AuctionFlowVPCE499B0FB": {
+   "Type": "AWS::EC2::VPC",
+   "Properties": {
+    "CidrBlock": "10.0.0.0/16",
+    "EnableDnsHostnames": true,
+    "EnableDnsSupport": true,
+    "InstanceTenancy": "default",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "AuctionFlowStack/AuctionFlowVPC"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/AuctionFlowVPC/Resource"
+   }
+  },
+  "AuctionFlowVPCpublicSubnet1Subnet092CB7DF": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "us-west-2a",
+    "CidrBlock": "10.0.0.0/24",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "public"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "Name",
+      "Value": "AuctionFlowStack/AuctionFlowVPC/publicSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "AuctionFlowVPCE499B0FB"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/AuctionFlowVPC/publicSubnet1/Subnet"
+   }
+  },
+  "AuctionFlowVPCpublicSubnet1RouteTableCF15E3AA": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "AuctionFlowStack/AuctionFlowVPC/publicSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "AuctionFlowVPCE499B0FB"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/AuctionFlowVPC/publicSubnet1/RouteTable"
+   }
+  },
+  "AuctionFlowVPCpublicSubnet1RouteTableAssociation5A9D3CB3": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "AuctionFlowVPCpublicSubnet1RouteTableCF15E3AA"
+    },
+    "SubnetId": {
+     "Ref": "AuctionFlowVPCpublicSubnet1Subnet092CB7DF"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/AuctionFlowVPC/publicSubnet1/RouteTableAssociation"
+   }
+  },
+  "AuctionFlowVPCpublicSubnet1DefaultRouteF364CA55": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "AuctionFlowVPCIGW760017A9"
+    },
+    "RouteTableId": {
+     "Ref": "AuctionFlowVPCpublicSubnet1RouteTableCF15E3AA"
+    }
+   },
+   "DependsOn": [
+    "AuctionFlowVPCVPCGW9B50125B"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/AuctionFlowVPC/publicSubnet1/DefaultRoute"
+   }
+  },
+  "AuctionFlowVPCpublicSubnet1EIP2BC1B3C6": {
+   "Type": "AWS::EC2::EIP",
+   "Properties": {
+    "Domain": "vpc",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "AuctionFlowStack/AuctionFlowVPC/publicSubnet1"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/AuctionFlowVPC/publicSubnet1/EIP"
+   }
+  },
+  "AuctionFlowVPCpublicSubnet1NATGatewayE886F9F5": {
+   "Type": "AWS::EC2::NatGateway",
+   "Properties": {
+    "AllocationId": {
+     "Fn::GetAtt": [
+      "AuctionFlowVPCpublicSubnet1EIP2BC1B3C6",
+      "AllocationId"
+     ]
+    },
+    "SubnetId": {
+     "Ref": "AuctionFlowVPCpublicSubnet1Subnet092CB7DF"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "AuctionFlowStack/AuctionFlowVPC/publicSubnet1"
+     }
+    ]
+   },
+   "DependsOn": [
+    "AuctionFlowVPCpublicSubnet1DefaultRouteF364CA55",
+    "AuctionFlowVPCpublicSubnet1RouteTableAssociation5A9D3CB3"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/AuctionFlowVPC/publicSubnet1/NATGateway"
+   }
+  },
+  "AuctionFlowVPCpublicSubnet2SubnetBBBC0FC9": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "us-west-2b",
+    "CidrBlock": "10.0.1.0/24",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "public"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "Name",
+      "Value": "AuctionFlowStack/AuctionFlowVPC/publicSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "AuctionFlowVPCE499B0FB"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/AuctionFlowVPC/publicSubnet2/Subnet"
+   }
+  },
+  "AuctionFlowVPCpublicSubnet2RouteTable02A9C1CD": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "AuctionFlowStack/AuctionFlowVPC/publicSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "AuctionFlowVPCE499B0FB"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/AuctionFlowVPC/publicSubnet2/RouteTable"
+   }
+  },
+  "AuctionFlowVPCpublicSubnet2RouteTableAssociationB0E7F75E": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "AuctionFlowVPCpublicSubnet2RouteTable02A9C1CD"
+    },
+    "SubnetId": {
+     "Ref": "AuctionFlowVPCpublicSubnet2SubnetBBBC0FC9"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/AuctionFlowVPC/publicSubnet2/RouteTableAssociation"
+   }
+  },
+  "AuctionFlowVPCpublicSubnet2DefaultRouteACC97F3F": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "AuctionFlowVPCIGW760017A9"
+    },
+    "RouteTableId": {
+     "Ref": "AuctionFlowVPCpublicSubnet2RouteTable02A9C1CD"
+    }
+   },
+   "DependsOn": [
+    "AuctionFlowVPCVPCGW9B50125B"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/AuctionFlowVPC/publicSubnet2/DefaultRoute"
+   }
+  },
+  "AuctionFlowVPCprivateSubnet1Subnet2576F173": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "us-west-2a",
+    "CidrBlock": "10.0.2.0/24",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "private"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Private"
+     },
+     {
+      "Key": "Name",
+      "Value": "AuctionFlowStack/AuctionFlowVPC/privateSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "AuctionFlowVPCE499B0FB"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/AuctionFlowVPC/privateSubnet1/Subnet"
+   }
+  },
+  "AuctionFlowVPCprivateSubnet1RouteTable69929BFE": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "AuctionFlowStack/AuctionFlowVPC/privateSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "AuctionFlowVPCE499B0FB"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/AuctionFlowVPC/privateSubnet1/RouteTable"
+   }
+  },
+  "AuctionFlowVPCprivateSubnet1RouteTableAssociation8BDC0DCA": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "AuctionFlowVPCprivateSubnet1RouteTable69929BFE"
+    },
+    "SubnetId": {
+     "Ref": "AuctionFlowVPCprivateSubnet1Subnet2576F173"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/AuctionFlowVPC/privateSubnet1/RouteTableAssociation"
+   }
+  },
+  "AuctionFlowVPCprivateSubnet1DefaultRouteA4C8BF81": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "NatGatewayId": {
+     "Ref": "AuctionFlowVPCpublicSubnet1NATGatewayE886F9F5"
+    },
+    "RouteTableId": {
+     "Ref": "AuctionFlowVPCprivateSubnet1RouteTable69929BFE"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/AuctionFlowVPC/privateSubnet1/DefaultRoute"
+   }
+  },
+  "AuctionFlowVPCprivateSubnet2SubnetE5827D72": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "us-west-2b",
+    "CidrBlock": "10.0.3.0/24",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "private"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Private"
+     },
+     {
+      "Key": "Name",
+      "Value": "AuctionFlowStack/AuctionFlowVPC/privateSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "AuctionFlowVPCE499B0FB"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/AuctionFlowVPC/privateSubnet2/Subnet"
+   }
+  },
+  "AuctionFlowVPCprivateSubnet2RouteTable354E75AC": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "AuctionFlowStack/AuctionFlowVPC/privateSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "AuctionFlowVPCE499B0FB"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/AuctionFlowVPC/privateSubnet2/RouteTable"
+   }
+  },
+  "AuctionFlowVPCprivateSubnet2RouteTableAssociation5A3C979C": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "AuctionFlowVPCprivateSubnet2RouteTable354E75AC"
+    },
+    "SubnetId": {
+     "Ref": "AuctionFlowVPCprivateSubnet2SubnetE5827D72"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/AuctionFlowVPC/privateSubnet2/RouteTableAssociation"
+   }
+  },
+  "AuctionFlowVPCprivateSubnet2DefaultRoute5BDC196D": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "NatGatewayId": {
+     "Ref": "AuctionFlowVPCpublicSubnet1NATGatewayE886F9F5"
+    },
+    "RouteTableId": {
+     "Ref": "AuctionFlowVPCprivateSubnet2RouteTable354E75AC"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/AuctionFlowVPC/privateSubnet2/DefaultRoute"
+   }
+  },
+  "AuctionFlowVPCisolatedSubnet1Subnet0F6407E8": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "us-west-2a",
+    "CidrBlock": "10.0.4.0/24",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "isolated"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Isolated"
+     },
+     {
+      "Key": "Name",
+      "Value": "AuctionFlowStack/AuctionFlowVPC/isolatedSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "AuctionFlowVPCE499B0FB"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/AuctionFlowVPC/isolatedSubnet1/Subnet"
+   }
+  },
+  "AuctionFlowVPCisolatedSubnet1RouteTable996D00BC": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "AuctionFlowStack/AuctionFlowVPC/isolatedSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "AuctionFlowVPCE499B0FB"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/AuctionFlowVPC/isolatedSubnet1/RouteTable"
+   }
+  },
+  "AuctionFlowVPCisolatedSubnet1RouteTableAssociationBB509995": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "AuctionFlowVPCisolatedSubnet1RouteTable996D00BC"
+    },
+    "SubnetId": {
+     "Ref": "AuctionFlowVPCisolatedSubnet1Subnet0F6407E8"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/AuctionFlowVPC/isolatedSubnet1/RouteTableAssociation"
+   }
+  },
+  "AuctionFlowVPCisolatedSubnet2SubnetC2677418": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "us-west-2b",
+    "CidrBlock": "10.0.5.0/24",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "isolated"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Isolated"
+     },
+     {
+      "Key": "Name",
+      "Value": "AuctionFlowStack/AuctionFlowVPC/isolatedSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "AuctionFlowVPCE499B0FB"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/AuctionFlowVPC/isolatedSubnet2/Subnet"
+   }
+  },
+  "AuctionFlowVPCisolatedSubnet2RouteTableB9315481": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "AuctionFlowStack/AuctionFlowVPC/isolatedSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "AuctionFlowVPCE499B0FB"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/AuctionFlowVPC/isolatedSubnet2/RouteTable"
+   }
+  },
+  "AuctionFlowVPCisolatedSubnet2RouteTableAssociation03430E8C": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "AuctionFlowVPCisolatedSubnet2RouteTableB9315481"
+    },
+    "SubnetId": {
+     "Ref": "AuctionFlowVPCisolatedSubnet2SubnetC2677418"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/AuctionFlowVPC/isolatedSubnet2/RouteTableAssociation"
+   }
+  },
+  "AuctionFlowVPCIGW760017A9": {
+   "Type": "AWS::EC2::InternetGateway",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "AuctionFlowStack/AuctionFlowVPC"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/AuctionFlowVPC/IGW"
+   }
+  },
+  "AuctionFlowVPCVPCGW9B50125B": {
+   "Type": "AWS::EC2::VPCGatewayAttachment",
+   "Properties": {
+    "InternetGatewayId": {
+     "Ref": "AuctionFlowVPCIGW760017A9"
+    },
+    "VpcId": {
+     "Ref": "AuctionFlowVPCE499B0FB"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/AuctionFlowVPC/VPCGW"
+   }
+  },
+  "AuctionFlowUserPool74215018": {
+   "Type": "AWS::Cognito::UserPool",
+   "Properties": {
+    "AccountRecoverySetting": {
+     "RecoveryMechanisms": [
+      {
+       "Name": "verified_email",
+       "Priority": 1
+      }
+     ]
+    },
+    "AdminCreateUserConfig": {
+     "AllowAdminCreateUserOnly": false
+    },
+    "AutoVerifiedAttributes": [
+     "email"
+    ],
+    "EmailVerificationMessage": "The verification code to your new account is {####}",
+    "EmailVerificationSubject": "Verify your new account",
+    "Policies": {
+     "PasswordPolicy": {
+      "MinimumLength": 8,
+      "RequireLowercase": true,
+      "RequireNumbers": true,
+      "RequireSymbols": true,
+      "RequireUppercase": true
+     }
+    },
+    "Schema": [
+     {
+      "Mutable": true,
+      "Name": "email",
+      "Required": true
+     },
+     {
+      "Mutable": true,
+      "Name": "given_name",
+      "Required": false
+     },
+     {
+      "Mutable": true,
+      "Name": "family_name",
+      "Required": false
+     },
+     {
+      "AttributeDataType": "String",
+      "Mutable": true,
+      "Name": "role",
+      "StringAttributeConstraints": {
+       "MaxLength": "20",
+       "MinLength": "1"
+      }
+     }
+    ],
+    "SmsVerificationMessage": "The verification code to your new account is {####}",
+    "UserPoolName": "auction-flow-users",
+    "UsernameAttributes": [
+     "email"
+    ],
+    "VerificationMessageTemplate": {
+     "DefaultEmailOption": "CONFIRM_WITH_CODE",
+     "EmailMessage": "The verification code to your new account is {####}",
+     "EmailSubject": "Verify your new account",
+     "SmsMessage": "The verification code to your new account is {####}"
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/AuctionFlowUserPool/Resource"
+   }
+  },
+  "AdminGroup": {
+   "Type": "AWS::Cognito::UserPoolGroup",
+   "Properties": {
+    "Description": "Administrators with full access",
+    "GroupName": "admin",
+    "Precedence": 0,
+    "UserPoolId": {
+     "Ref": "AuctionFlowUserPool74215018"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/AdminGroup"
+   }
+  },
+  "BuyerGroup": {
+   "Type": "AWS::Cognito::UserPoolGroup",
+   "Properties": {
+    "Description": "Regular buyers",
+    "GroupName": "buyer",
+    "Precedence": 1,
+    "UserPoolId": {
+     "Ref": "AuctionFlowUserPool74215018"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/BuyerGroup"
+   }
+  },
+  "AuctionFlowUserPoolClient365F131E": {
+   "Type": "AWS::Cognito::UserPoolClient",
+   "Properties": {
+    "AllowedOAuthFlows": [
+     "code"
+    ],
+    "AllowedOAuthFlowsUserPoolClient": true,
+    "AllowedOAuthScopes": [
+     "email",
+     "openid",
+     "profile"
+    ],
+    "CallbackURLs": [
+     "http://localhost:3000/api/auth/callback/cognito",
+     "https://main.d1abcdefg123.amplifyapp.com/api/auth/callback/cognito"
+    ],
+    "ClientName": "auction-flow-web",
+    "ExplicitAuthFlows": [
+     "ALLOW_USER_PASSWORD_AUTH",
+     "ALLOW_USER_SRP_AUTH",
+     "ALLOW_REFRESH_TOKEN_AUTH"
+    ],
+    "GenerateSecret": false,
+    "LogoutURLs": [
+     "http://localhost:3000/admin/login",
+     "https://main.d1abcdefg123.amplifyapp.com/admin/login"
+    ],
+    "SupportedIdentityProviders": [
+     "COGNITO"
+    ],
+    "UserPoolId": {
+     "Ref": "AuctionFlowUserPool74215018"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/AuctionFlowUserPoolClient/Resource"
+   }
+  },
+  "AuctionFlowIdentityPool": {
+   "Type": "AWS::Cognito::IdentityPool",
+   "Properties": {
+    "AllowUnauthenticatedIdentities": false,
+    "CognitoIdentityProviders": [
+     {
+      "ClientId": {
+       "Ref": "AuctionFlowUserPoolClient365F131E"
+      },
+      "ProviderName": {
+       "Fn::GetAtt": [
+        "AuctionFlowUserPool74215018",
+        "ProviderName"
+       ]
+      }
+     }
+    ],
+    "IdentityPoolName": "auction-flow-identity"
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/AuctionFlowIdentityPool"
+   }
+  },
+  "AuctionFlowDBSubnetGroup56319C2B": {
+   "Type": "AWS::RDS::DBSubnetGroup",
+   "Properties": {
+    "DBSubnetGroupDescription": "Subnet group for AuctionFlowDB database",
+    "SubnetIds": [
+     {
+      "Ref": "AuctionFlowVPCisolatedSubnet1Subnet0F6407E8"
+     },
+     {
+      "Ref": "AuctionFlowVPCisolatedSubnet2SubnetC2677418"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/AuctionFlowDB/SubnetGroup/Default"
+   }
+  },
+  "AuctionFlowDBSecurityGroup52BD7985": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "Security group for AuctionFlowDB database",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "AuctionFlowVPCE499B0FB"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/AuctionFlowDB/SecurityGroup/Resource"
+   }
+  },
+  "AuctionFlowDBSecretA40E1E52": {
+   "Type": "AWS::SecretsManager::Secret",
+   "Properties": {
+    "Description": {
+     "Fn::Join": [
+      "",
+      [
+       "Generated by the CDK for stack: ",
+       {
+        "Ref": "AWS::StackName"
+       }
+      ]
+     ]
+    },
+    "GenerateSecretString": {
+     "ExcludeCharacters": " %+~`#$&*()|[]{}:;<>?!'/@\"\\",
+     "GenerateStringKey": "password",
+     "PasswordLength": 30,
+     "SecretStringTemplate": "{\"username\":\"postgres\"}"
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/AuctionFlowDB/Secret/Resource"
+   }
+  },
+  "AuctionFlowDBSecretAttachmentF8227BBD": {
+   "Type": "AWS::SecretsManager::SecretTargetAttachment",
+   "Properties": {
+    "SecretId": {
+     "Ref": "AuctionFlowDBSecretA40E1E52"
+    },
+    "TargetId": {
+     "Ref": "AuctionFlowDB3A48C38D"
+    },
+    "TargetType": "AWS::RDS::DBInstance"
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/AuctionFlowDB/Secret/Attachment/Resource"
+   }
+  },
+  "AuctionFlowDB3A48C38D": {
+   "Type": "AWS::RDS::DBInstance",
+   "Properties": {
+    "AllocatedStorage": "20",
+    "BackupRetentionPeriod": 7,
+    "CopyTagsToSnapshot": true,
+    "DBInstanceClass": "db.t3.micro",
+    "DBName": "auctionflow",
+    "DBSubnetGroupName": {
+     "Ref": "AuctionFlowDBSubnetGroup56319C2B"
+    },
+    "DeleteAutomatedBackups": false,
+    "DeletionProtection": false,
+    "EnablePerformanceInsights": true,
+    "Engine": "postgres",
+    "EngineVersion": "13.7",
+    "MasterUserPassword": {
+     "Fn::Join": [
+      "",
+      [
+       "{{resolve:secretsmanager:",
+       {
+        "Ref": "AuctionFlowDBSecretA40E1E52"
+       },
+       ":SecretString:password::}}"
+      ]
+     ]
+    },
+    "MasterUsername": {
+     "Fn::Join": [
+      "",
+      [
+       "{{resolve:secretsmanager:",
+       {
+        "Ref": "AuctionFlowDBSecretA40E1E52"
+       },
+       ":SecretString:username::}}"
+      ]
+     ]
+    },
+    "MaxAllocatedStorage": 100,
+    "PerformanceInsightsRetentionPeriod": 7,
+    "PubliclyAccessible": false,
+    "StorageType": "gp2",
+    "VPCSecurityGroups": [
+     {
+      "Fn::GetAtt": [
+       "AuctionFlowDBSecurityGroup52BD7985",
+       "GroupId"
+      ]
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/AuctionFlowDB/Resource"
+   }
+  },
+  "AuctionFlowStorage3BC608C8": {
+   "Type": "AWS::S3::Bucket",
+   "Properties": {
+    "BucketEncryption": {
+     "ServerSideEncryptionConfiguration": [
+      {
+       "ServerSideEncryptionByDefault": {
+        "SSEAlgorithm": "AES256"
+       }
+      }
+     ]
+    },
+    "BucketName": "auction-flow-storage-971422717446-677202",
+    "LifecycleConfiguration": {
+     "Rules": [
+      {
+       "Id": "DeleteOldVersions",
+       "NoncurrentVersionExpiration": {
+        "NoncurrentDays": 30
+       },
+       "Status": "Enabled"
+      }
+     ]
+    },
+    "PublicAccessBlockConfiguration": {
+     "BlockPublicAcls": true,
+     "BlockPublicPolicy": true,
+     "IgnorePublicAcls": true,
+     "RestrictPublicBuckets": true
+    },
+    "Tags": [
+     {
+      "Key": "aws-cdk:auto-delete-objects",
+      "Value": "true"
+     }
+    ],
+    "VersioningConfiguration": {
+     "Status": "Enabled"
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/AuctionFlowStorage/Resource"
+   }
+  },
+  "AuctionFlowStoragePolicy7781319C": {
+   "Type": "AWS::S3::BucketPolicy",
+   "Properties": {
+    "Bucket": {
+     "Ref": "AuctionFlowStorage3BC608C8"
+    },
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "s3:DeleteObject*",
+        "s3:GetBucket*",
+        "s3:List*",
+        "s3:PutBucketPolicy"
+       ],
+       "Effect": "Allow",
+       "Principal": {
+        "AWS": {
+         "Fn::GetAtt": [
+          "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
+          "Arn"
+         ]
+        }
+       },
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "AuctionFlowStorage3BC608C8",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "AuctionFlowStorage3BC608C8",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/AuctionFlowStorage/Policy/Resource"
+   }
+  },
+  "AuctionFlowStorageAutoDeleteObjectsCustomResource294C8C40": {
+   "Type": "Custom::S3AutoDeleteObjects",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F",
+      "Arn"
+     ]
+    },
+    "BucketName": {
+     "Ref": "AuctionFlowStorage3BC608C8"
+    }
+   },
+   "DependsOn": [
+    "AuctionFlowStoragePolicy7781319C"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/AuctionFlowStorage/AutoDeleteObjectsCustomResource/Default"
+   }
+  },
+  "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Version": "2012-10-17",
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ]
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Sub": "arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Role"
+   }
+  },
+  "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-971422717446-us-west-2",
+     "S3Key": "faa95a81ae7d7373f3e1f242268f904eb748d8d0fdd306e8a6fe515a1905a7d6.zip"
+    },
+    "Timeout": 900,
+    "MemorySize": 128,
+    "Handler": "index.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs22.x",
+    "Description": {
+     "Fn::Join": [
+      "",
+      [
+       "Lambda function for auto-deleting objects in ",
+       {
+        "Ref": "AuctionFlowStorage3BC608C8"
+       },
+       " S3 bucket."
+      ]
+     ]
+    }
+   },
+   "DependsOn": [
+    "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Handler",
+    "aws:asset:path": "asset.faa95a81ae7d7373f3e1f242268f904eb748d8d0fdd306e8a6fe515a1905a7d6",
+    "aws:asset:property": "Code"
+   }
+  },
+  "AuctionFlowAlarms924E07AA": {
+   "Type": "AWS::SNS::Topic",
+   "Properties": {
+    "DisplayName": "AuctionFlow System Alarms"
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/AuctionFlowAlarms/Resource"
+   }
+  },
+  "DBCpuAlarmB49D545E": {
+   "Type": "AWS::CloudWatch::Alarm",
+   "Properties": {
+    "AlarmActions": [
+     {
+      "Ref": "AuctionFlowAlarms924E07AA"
+     }
+    ],
+    "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+    "Dimensions": [
+     {
+      "Name": "DBInstanceIdentifier",
+      "Value": {
+       "Ref": "AuctionFlowDB3A48C38D"
+      }
+     }
+    ],
+    "EvaluationPeriods": 2,
+    "MetricName": "CPUUtilization",
+    "Namespace": "AWS/RDS",
+    "Period": 300,
+    "Statistic": "Average",
+    "Threshold": 80,
+    "TreatMissingData": "notBreaching"
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/DBCpuAlarm/Resource"
+   }
+  },
+  "DBMemoryAlarm30E20DAA": {
+   "Type": "AWS::CloudWatch::Alarm",
+   "Properties": {
+    "AlarmActions": [
+     {
+      "Ref": "AuctionFlowAlarms924E07AA"
+     }
+    ],
+    "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+    "Dimensions": [
+     {
+      "Name": "DBInstanceIdentifier",
+      "Value": {
+       "Ref": "AuctionFlowDB3A48C38D"
+      }
+     }
+    ],
+    "EvaluationPeriods": 2,
+    "MetricName": "FreeableMemory",
+    "Namespace": "AWS/RDS",
+    "Period": 300,
+    "Statistic": "Average",
+    "Threshold": 104857600,
+    "TreatMissingData": "notBreaching"
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuctionFlowStack/DBMemoryAlarm/Resource"
+   }
+  },
   "AuctionFlowApp": {
    "Type": "AWS::Amplify::App",
    "Properties": {
@@ -117,7 +1177,7 @@
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/yXJSwrCMBSF4bV0fnOtEQcO1QUIcQES0xRvmxd5KBKydxscfT/ncOT8gOMgP4mpaWWGnljvWaoVhE6+RKVh+x5V2mBo/mK9zu4cAmxconTq1YCkxSq80X3sttbrVnIouYHzk8Yl7d58xP0Jj8OSiFgsLpPVKP7+AJXD9uyIAAAA"
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/21SwW7bMAz9lt4VrXPRQ49xUhS5bEaS9TrQMuuosSVDohIEgv99lNXEwdATHx+fKD5KhSyKJ/n4AGe/UM1x0elaxh2BOgqm/kZUhYzvgxKrD/NerUQV6k6rXagNUuJmtLWBcA91hzM/c0vvrdJA2pqbOIHXTZXCL6A3IDzDRVROnxjOjTeG0DG+CvIkX9mSeNZDj4bEDlVwmi5vzoZhmuGeGIWyrdFkZfzj0VXWdknzHc4Nrtmq06n7XX1mNg0DviGxo3CNl3ENBDV43BhPYBSKbOQ21Lq8J65qHtVlt+vyenIUfmJ9DwZadDJmT0mYwx5ci3S3gpvg/wr3epKxDOqYb/lCOVSWn/Qy0znnI4b97O2gp9efAG+xs6E5A6mDjMsOXJ9qExgF9EOnPy7ToMthsls6tnIYhYZexq3NnyPFcRRb9DY4XtEqeLL9nLLi+1Ll7Ek36EpemeAvhcRftdWmTWd+BxoCOzW2Qfnpf5yKR/nzRT4/fHqtFy7wS/Uotzn+A0D8OcT4AgAA"
    },
    "Metadata": {
     "aws:cdk:path": "AuctionFlowStack/CDKMetadata/Default"
@@ -166,6 +1226,66 @@
       }
      ]
     ]
+   }
+  },
+  "UserPoolId": {
+   "Description": "Cognito User Pool ID",
+   "Value": {
+    "Ref": "AuctionFlowUserPool74215018"
+   }
+  },
+  "UserPoolClientId": {
+   "Description": "Cognito User Pool Client ID",
+   "Value": {
+    "Ref": "AuctionFlowUserPoolClient365F131E"
+   }
+  },
+  "IdentityPoolId": {
+   "Description": "Cognito Identity Pool ID",
+   "Value": {
+    "Ref": "AuctionFlowIdentityPool"
+   }
+  },
+  "CognitoIssuer": {
+   "Description": "Cognito JWT Issuer URL",
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "https://cognito-idp.us-west-2.amazonaws.com/",
+      {
+       "Ref": "AuctionFlowUserPool74215018"
+      }
+     ]
+    ]
+   }
+  },
+  "DatabaseHost": {
+   "Description": "RDS Database Host",
+   "Value": {
+    "Fn::GetAtt": [
+     "AuctionFlowDB3A48C38D",
+     "Endpoint.Address"
+    ]
+   }
+  },
+  "DatabasePort": {
+   "Description": "RDS Database Port",
+   "Value": {
+    "Fn::GetAtt": [
+     "AuctionFlowDB3A48C38D",
+     "Endpoint.Port"
+    ]
+   }
+  },
+  "DatabaseName": {
+   "Description": "RDS Database Name",
+   "Value": "auctionflow"
+  },
+  "StorageBucketName": {
+   "Description": "S3 Storage Bucket Name",
+   "Value": {
+    "Ref": "AuctionFlowStorage3BC608C8"
    }
   }
  },

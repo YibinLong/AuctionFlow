@@ -5,9 +5,36 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
-  assetPrefix: process.env.NODE_ENV === 'production' ? undefined : undefined,
   distDir: 'out',
   output: 'export',
+
+  // Performance optimizations
+  compress: false, // Disabled for static export
+  poweredByHeader: false,
+
+  // Turbopack config
+  turbopack: {},
+
+  // Bundle optimization
+  webpack: (config, { dev, isServer }) => {
+    // Optimize bundle size for client-side
+    if (!dev && !isServer) {
+      config.optimization.splitChunks = {
+        chunks: 'all',
+        minSize: 20000,
+        maxSize: 244000,
+        cacheGroups: {
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'vendors',
+            chunks: 'all',
+          },
+        },
+      };
+    }
+
+    return config;
+  },
 };
 
 export default nextConfig;

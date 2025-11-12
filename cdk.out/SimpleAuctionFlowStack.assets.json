@@ -2,7 +2,7 @@
   "version": "48.0.0",
   "files": {
     "faa95a81ae7d7373f3e1f242268f904eb748d8d0fdd306e8a6fe515a1905a7d6": {
-      "displayName": "AuctionFlowStack/Custom::S3AutoDeleteObjectsCustomResourceProvider Code",
+      "displayName": "SimpleAuctionFlowStack/Custom::S3AutoDeleteObjectsCustomResourceProvider Code",
       "source": {
         "path": "asset.faa95a81ae7d7373f3e1f242268f904eb748d8d0fdd306e8a6fe515a1905a7d6",
         "packaging": "zip"
@@ -16,16 +16,16 @@
         }
       }
     },
-    "625529006df1aea5ac3a15e5ccd2b8798906f547c59b367f359bde4c35235b62": {
-      "displayName": "AuctionFlowStack Template",
+    "2593769f09bcd375be57a88bc828cf8719bc923eee7c59c6257306e84ff7839d": {
+      "displayName": "SimpleAuctionFlowStack Template",
       "source": {
-        "path": "AuctionFlowStack.template.json",
+        "path": "SimpleAuctionFlowStack.template.json",
         "packaging": "file"
       },
       "destinations": {
-        "971422717446-us-west-2-777b6b49": {
+        "971422717446-us-west-2-21eb17cd": {
           "bucketName": "cdk-hnb659fds-assets-971422717446-us-west-2",
-          "objectKey": "625529006df1aea5ac3a15e5ccd2b8798906f547c59b367f359bde4c35235b62.json",
+          "objectKey": "2593769f09bcd375be57a88bc828cf8719bc923eee7c59c6257306e84ff7839d.json",
           "region": "us-west-2",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::971422717446:role/cdk-hnb659fds-file-publishing-role-971422717446-us-west-2"
         }

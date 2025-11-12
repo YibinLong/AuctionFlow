@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 import * as cdk from 'aws-cdk-lib';
-import { AuctionFlowStack } from '../lib/auction-flow-stack';
+import { SimpleAuctionFlowStack } from '../lib/simple-stack';
 
 const app = new cdk.App();
-new AuctionFlowStack(app, 'AuctionFlowStack', {
+new SimpleAuctionFlowStack(app, 'SimpleAuctionFlowStack', {
   env: {
     account: process.env.CDK_DEFAULT_ACCOUNT,
     region: process.env.CDK_DEFAULT_REGION,
