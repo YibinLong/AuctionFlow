@@ -219,6 +219,62 @@ INSERT INTO system_settings (key, value, description) VALUES
 ('invoice_due_days', '30', 'Number of days until invoice is due'),
 ('currency', 'USD', 'Default currency');
 
+-- =============================================================================
+-- Calculation Rates
+-- =============================================================================
+
+CREATE TABLE calculation_rates (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    buyers_premium_rate DECIMAL(5,4) NOT NULL DEFAULT 0.1000,
+    tax_rate DECIMAL(5,4) NOT NULL DEFAULT 0.0850,
+    currency VARCHAR(3) DEFAULT 'USD',
+    is_active BOOLEAN DEFAULT true,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE premium_tiers (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    name VARCHAR(100) NOT NULL,
+    min_amount DECIMAL(12,2) NOT NULL DEFAULT 0,
+    max_amount DECIMAL(12,2),
+    rate DECIMAL(5,4) NOT NULL,
+    is_active BOOLEAN DEFAULT true,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- =============================================================================
+-- Initial Data
+-- =============================================================================
+
+-- Default system settings
+INSERT INTO system_settings (key, value, description) VALUES
+('default_buyers_premium_rate', '0.1000', 'Default buyer''s premium rate (10%)'),
+('default_tax_rate', '0.0850', 'Default tax rate (8.5%)'),
+('invoice_due_days', '30', 'Number of days until invoice is due'),
+('currency', 'USD', 'Default currency');
+
+-- Default calculation rates
+INSERT INTO calculation_rates (buyers_premium_rate, tax_rate, currency, is_active) VALUES
+(0.1000, 0.0850, 'USD', true);
+
+-- Default premium tiers
+INSERT INTO premium_tiers (name, min_amount, max_amount, rate, is_active) VALUES
+('Standard Rate', 0, NULL, 0.1000, true);
+
 -- Create a default admin user (password should be hashed in real implementation)
 INSERT INTO users (email, name, role) VALUES
 ('admin@auctionflow.com', 'System Administrator', 'admin');
+
+-- =============================================================================
+-- Additional Triggers
+-- =============================================================================
+
+CREATE TRIGGER set_timestamp
+BEFORE UPDATE ON calculation_rates
+FOR EACH ROW EXECUTE FUNCTION trigger_set_timestamp();
+
+CREATE TRIGGER set_timestamp
+BEFORE UPDATE ON premium_tiers
+FOR EACH ROW EXECUTE FUNCTION trigger_set_timestamp();
