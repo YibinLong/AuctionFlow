@@ -13,6 +13,7 @@ export interface AuditEvent {
   metadata?: Record<string, any>;
   old_values?: Record<string, any>;
   new_values?: Record<string, any>;
+  processing_time_ms?: number;
 }
 
 export class AuditLogger {
@@ -51,6 +52,11 @@ export class AuditLogger {
         old_values: event.old_values || {},
         new_values: event.new_values || {}
       };
+
+      // Include processing time in metadata if provided
+      if (event.processing_time_ms) {
+        auditLog.metadata.processing_time_ms = event.processing_time_ms;
+      }
 
       // Insert into database
       const result = await query<AuditLog>(
