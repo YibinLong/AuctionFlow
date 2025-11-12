@@ -138,9 +138,28 @@ export class AuctionFlowStack extends cdk.Stack {
       }],
     });
 
-    // Database temporarily removed for faster deployment
-    // Will deploy database separately after infrastructure is up
-    // const dbInstance = new rds.DatabaseInstance(this, 'AuctionFlowDB', {
+    // Create RDS PostgreSQL database instance
+    const dbInstance = new rds.DatabaseInstance(this, 'AuctionFlowDB', {
+      engine: rds.DatabaseInstanceEngine.postgres({
+        version: rds.PostgresEngineVersion.VER_15_4,
+      }),
+      instanceType: ec2.InstanceType.of(ec2.InstanceClass.BURSTABLE3, ec2.InstanceSize.MICRO),
+      vpc: vpc,
+      vpcSubnets: {
+        subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS,
+      },
+      databaseName: 'auctionflow',
+      allocatedStorage: 20,
+      maxAllocatedStorage: 100,
+      storageType: rds.StorageType.GP2,
+      multiAz: true, // Multi-AZ for high availability
+      backupRetention: cdk.Duration.days(7),
+      deleteAutomatedBackups: false,
+      deletionProtection: false,
+      securityGroups: [], // Will add security group if needed
+      parameterGroup: rds.ParameterGroup.fromParameterGroupName(this, 'DefaultParameterGroup', 'default.postgres15'),
+      removalPolicy: cdk.RemovalPolicy.DESTROY, // For development - use RETAIN for production
+    });
 
     // Redis/ElastiCache temporarily removed for simplified deployment
     // Can be added later when needed for caching
