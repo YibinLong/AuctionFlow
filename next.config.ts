@@ -2,14 +2,9 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   trailingSlash: true,
-  images: {
-    unoptimized: true,
-  },
-  distDir: 'out',
-  output: 'export',
 
   // Performance optimizations
-  compress: false, // Disabled for static export
+  compress: true,
   poweredByHeader: false,
 
   // Turbopack config
