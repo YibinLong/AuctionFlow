@@ -4,10 +4,10 @@ import { auditLogger } from '@/lib/audit-logger';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const invoiceId = params.id;
+    const { id: invoiceId } = await params;
 
     if (!invoiceId) {
       return NextResponse.json(
@@ -18,10 +18,8 @@ export async function GET(
 
     // Fetch invoice from database
     const invoices = await query(
-      `SELECT i.*, ai.auction_id, ai.auction_title, ai.auction_date,
-              u.name as buyer_name, u.email as buyer_email
+      `SELECT i.*, u.name as buyer_name, u.email as buyer_email
        FROM invoices i
-       LEFT JOIN auction_items ai ON i.auction_item_id = ai.id
        LEFT JOIN users u ON i.buyer_id = u.id
        WHERE i.id = $1`,
       [invoiceId]
@@ -40,7 +38,7 @@ export async function GET(
     const items = await query(
       `SELECT ii.*, ai.title as item_title, ai.lot_number
        FROM invoice_items ii
-       LEFT JOIN auction_items ai ON ii.auction_item_id = ai.id
+       LEFT JOIN auction_items ai ON ii.item_id = ai.id
        WHERE ii.invoice_id = $1`,
       [invoiceId]
     );
@@ -69,10 +67,10 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const invoiceId = params.id;
+    const { id: invoiceId } = await params;
     const body = await request.json();
     const { status, payment_method, notes } = body;
 
