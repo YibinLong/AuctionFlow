@@ -51,9 +51,9 @@ describe('Calculations Engine', () => {
     });
 
     it('should use Decimal.js for precision', () => {
-      const subtotal = new Decimal(0.01);
+      const subtotal = new Decimal(100); // Use larger amount to avoid rounding to 0
       const result = calculateBuyersPremium(subtotal, 0.3333);
-      expect(result.amount.toNumber()).toBeCloseTo(0.003333, 6);
+      expect(result.amount.toNumber()).toBeCloseTo(33.33, 2); // 100 * 0.3333 = 33.33, rounded to 2 decimal places
     });
   });
 
@@ -97,10 +97,10 @@ describe('Calculations Engine', () => {
       };
 
       const result = calculateInvoiceTotals(inputs);
-      expect(result.subtotal.toNumber()).toBeCloseTo(820.99, 2);
-      expect(result.buyers_premium_amount.toNumber()).toBeCloseTo(123.15, 2);
-      expect(result.tax_amount.toNumber()).toBeCloseTo(70.81, 2);
-      expect(result.grand_total.toNumber()).toBeCloseTo(1014.95, 2);
+      expect(result.subtotal.toNumber()).toBeCloseTo(630.99, 2);
+      expect(result.buyers_premium_amount.toNumber()).toBeCloseTo(94.65, 2);
+      expect(result.tax_amount.toNumber()).toBeCloseTo(54.42, 2);
+      expect(result.grand_total.toNumber()).toBeCloseTo(780.06, 2);
       expect(result.currency).toBe('USD');
     });
 

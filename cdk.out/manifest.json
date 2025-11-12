@@ -1,28 +1,28 @@
 {
   "version": "48.0.0",
   "artifacts": {
-    "SimpleAuctionFlowStack.assets": {
+    "AuctionFlowStack.assets": {
       "type": "cdk:asset-manifest",
       "properties": {
-        "file": "SimpleAuctionFlowStack.assets.json",
+        "file": "AuctionFlowStack.assets.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
       }
     },
-    "SimpleAuctionFlowStack": {
+    "AuctionFlowStack": {
       "type": "aws:cloudformation:stack",
       "environment": "aws://971422717446/us-west-2",
       "properties": {
-        "templateFile": "SimpleAuctionFlowStack.template.json",
+        "templateFile": "AuctionFlowStack.template.json",
         "terminationProtection": false,
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::971422717446:role/cdk-hnb659fds-deploy-role-971422717446-us-west-2",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::971422717446:role/cdk-hnb659fds-cfn-exec-role-971422717446-us-west-2",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-971422717446-us-west-2/2593769f09bcd375be57a88bc828cf8719bc923eee7c59c6257306e84ff7839d.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-971422717446-us-west-2/4cd63842f9d92796dd1560b695738fff659a3e15522de8bc8beacc6d3bd3c6b5.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
-          "SimpleAuctionFlowStack.assets"
+          "AuctionFlowStack.assets"
         ],
         "lookupRole": {
           "arn": "arn:${AWS::Partition}:iam::971422717446:role/cdk-hnb659fds-lookup-role-971422717446-us-west-2",
@@ -31,131 +31,389 @@
         }
       },
       "dependencies": [
-        "SimpleAuctionFlowStack.assets"
+        "AuctionFlowStack.assets"
       ],
       "metadata": {
-        "/SimpleAuctionFlowStack/AuctionFlowUserPool/Resource": [
+        "/AuctionFlowStack/AuctionFlowVPC/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuctionFlowVPCE499B0FB"
+          }
+        ],
+        "/AuctionFlowStack/AuctionFlowVPC/publicSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuctionFlowVPCpublicSubnet1Subnet092CB7DF"
+          }
+        ],
+        "/AuctionFlowStack/AuctionFlowVPC/publicSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuctionFlowVPCpublicSubnet1RouteTableCF15E3AA"
+          }
+        ],
+        "/AuctionFlowStack/AuctionFlowVPC/publicSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuctionFlowVPCpublicSubnet1RouteTableAssociation5A9D3CB3"
+          }
+        ],
+        "/AuctionFlowStack/AuctionFlowVPC/publicSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuctionFlowVPCpublicSubnet1DefaultRouteF364CA55"
+          }
+        ],
+        "/AuctionFlowStack/AuctionFlowVPC/publicSubnet1/EIP": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuctionFlowVPCpublicSubnet1EIP2BC1B3C6"
+          }
+        ],
+        "/AuctionFlowStack/AuctionFlowVPC/publicSubnet1/NATGateway": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuctionFlowVPCpublicSubnet1NATGatewayE886F9F5"
+          }
+        ],
+        "/AuctionFlowStack/AuctionFlowVPC/publicSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuctionFlowVPCpublicSubnet2SubnetBBBC0FC9"
+          }
+        ],
+        "/AuctionFlowStack/AuctionFlowVPC/publicSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuctionFlowVPCpublicSubnet2RouteTable02A9C1CD"
+          }
+        ],
+        "/AuctionFlowStack/AuctionFlowVPC/publicSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuctionFlowVPCpublicSubnet2RouteTableAssociationB0E7F75E"
+          }
+        ],
+        "/AuctionFlowStack/AuctionFlowVPC/publicSubnet2/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuctionFlowVPCpublicSubnet2DefaultRouteACC97F3F"
+          }
+        ],
+        "/AuctionFlowStack/AuctionFlowVPC/privateSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuctionFlowVPCprivateSubnet1Subnet2576F173"
+          }
+        ],
+        "/AuctionFlowStack/AuctionFlowVPC/privateSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuctionFlowVPCprivateSubnet1RouteTable69929BFE"
+          }
+        ],
+        "/AuctionFlowStack/AuctionFlowVPC/privateSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuctionFlowVPCprivateSubnet1RouteTableAssociation8BDC0DCA"
+          }
+        ],
+        "/AuctionFlowStack/AuctionFlowVPC/privateSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuctionFlowVPCprivateSubnet1DefaultRouteA4C8BF81"
+          }
+        ],
+        "/AuctionFlowStack/AuctionFlowVPC/privateSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuctionFlowVPCprivateSubnet2SubnetE5827D72"
+          }
+        ],
+        "/AuctionFlowStack/AuctionFlowVPC/privateSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuctionFlowVPCprivateSubnet2RouteTable354E75AC"
+          }
+        ],
+        "/AuctionFlowStack/AuctionFlowVPC/privateSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuctionFlowVPCprivateSubnet2RouteTableAssociation5A3C979C"
+          }
+        ],
+        "/AuctionFlowStack/AuctionFlowVPC/privateSubnet2/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuctionFlowVPCprivateSubnet2DefaultRoute5BDC196D"
+          }
+        ],
+        "/AuctionFlowStack/AuctionFlowVPC/isolatedSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuctionFlowVPCisolatedSubnet1Subnet0F6407E8"
+          }
+        ],
+        "/AuctionFlowStack/AuctionFlowVPC/isolatedSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuctionFlowVPCisolatedSubnet1RouteTable996D00BC"
+          }
+        ],
+        "/AuctionFlowStack/AuctionFlowVPC/isolatedSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuctionFlowVPCisolatedSubnet1RouteTableAssociationBB509995"
+          }
+        ],
+        "/AuctionFlowStack/AuctionFlowVPC/isolatedSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuctionFlowVPCisolatedSubnet2SubnetC2677418"
+          }
+        ],
+        "/AuctionFlowStack/AuctionFlowVPC/isolatedSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuctionFlowVPCisolatedSubnet2RouteTableB9315481"
+          }
+        ],
+        "/AuctionFlowStack/AuctionFlowVPC/isolatedSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuctionFlowVPCisolatedSubnet2RouteTableAssociation03430E8C"
+          }
+        ],
+        "/AuctionFlowStack/AuctionFlowVPC/IGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuctionFlowVPCIGW760017A9"
+          }
+        ],
+        "/AuctionFlowStack/AuctionFlowVPC/VPCGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuctionFlowVPCVPCGW9B50125B"
+          }
+        ],
+        "/AuctionFlowStack/AuctionFlowUserPool/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "AuctionFlowUserPool74215018"
           }
         ],
-        "/SimpleAuctionFlowStack/AuctionFlowUserPoolClient/Resource": [
+        "/AuctionFlowStack/AdminGroup": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AdminGroup"
+          }
+        ],
+        "/AuctionFlowStack/BuyerGroup": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BuyerGroup"
+          }
+        ],
+        "/AuctionFlowStack/AuctionFlowUserPoolClient/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "AuctionFlowUserPoolClient365F131E"
           }
         ],
-        "/SimpleAuctionFlowStack/AuctionFlowStorage/Resource": [
+        "/AuctionFlowStack/AuctionFlowIdentityPool": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuctionFlowIdentityPool"
+          }
+        ],
+        "/AuctionFlowStack/AuctionFlowDB/SubnetGroup/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuctionFlowDBSubnetGroup56319C2B"
+          }
+        ],
+        "/AuctionFlowStack/AuctionFlowDB/Secret/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuctionFlowDBSecretA40E1E52"
+          }
+        ],
+        "/AuctionFlowStack/AuctionFlowDB/Secret/Attachment/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuctionFlowDBSecretAttachmentF8227BBD"
+          }
+        ],
+        "/AuctionFlowStack/AuctionFlowDB/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuctionFlowDB3A48C38D"
+          }
+        ],
+        "/AuctionFlowStack/AuctionFlowStorage/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "AuctionFlowStorage3BC608C8"
           }
         ],
-        "/SimpleAuctionFlowStack/AuctionFlowStorage/Policy/Resource": [
+        "/AuctionFlowStack/AuctionFlowStorage/Policy/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "AuctionFlowStoragePolicy7781319C"
           }
         ],
-        "/SimpleAuctionFlowStack/AuctionFlowStorage/AutoDeleteObjectsCustomResource/Default": [
+        "/AuctionFlowStack/AuctionFlowStorage/AutoDeleteObjectsCustomResource/Default": [
           {
             "type": "aws:cdk:logicalId",
             "data": "AuctionFlowStorageAutoDeleteObjectsCustomResource294C8C40"
           }
         ],
-        "/SimpleAuctionFlowStack/Custom::S3AutoDeleteObjectsCustomResourceProvider": [
+        "/AuctionFlowStack/Custom::S3AutoDeleteObjectsCustomResourceProvider": [
           {
             "type": "aws:cdk:is-custom-resource-handler-customResourceProvider",
             "data": true
           }
         ],
-        "/SimpleAuctionFlowStack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Role": [
+        "/AuctionFlowStack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Role": [
           {
             "type": "aws:cdk:logicalId",
             "data": "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092"
           }
         ],
-        "/SimpleAuctionFlowStack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Handler": [
+        "/AuctionFlowStack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Handler": [
           {
             "type": "aws:cdk:logicalId",
             "data": "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F"
           }
         ],
-        "/SimpleAuctionFlowStack/AuctionFlowApp": [
+        "/AuctionFlowStack/AuctionFlowAlarms/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuctionFlowAlarms924E07AA"
+          }
+        ],
+        "/AuctionFlowStack/DBCpuAlarm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DBCpuAlarmB49D545E"
+          }
+        ],
+        "/AuctionFlowStack/DBMemoryAlarm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DBMemoryAlarm30E20DAA"
+          }
+        ],
+        "/AuctionFlowStack/AuctionFlowApp": [
           {
             "type": "aws:cdk:logicalId",
             "data": "AuctionFlowApp"
           }
         ],
-        "/SimpleAuctionFlowStack/MainBranch": [
+        "/AuctionFlowStack/MainBranch": [
           {
             "type": "aws:cdk:logicalId",
             "data": "MainBranch"
           }
         ],
-        "/SimpleAuctionFlowStack/DevBranch": [
+        "/AuctionFlowStack/DevBranch": [
           {
             "type": "aws:cdk:logicalId",
             "data": "DevBranch"
           }
         ],
-        "/SimpleAuctionFlowStack/AmplifyBuildRole/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "AmplifyBuildRole1497EA74"
-          }
-        ],
-        "/SimpleAuctionFlowStack/AmplifyAppId": [
+        "/AuctionFlowStack/AmplifyAppId": [
           {
             "type": "aws:cdk:logicalId",
             "data": "AmplifyAppId"
           }
         ],
-        "/SimpleAuctionFlowStack/AmplifyDomainUrl": [
+        "/AuctionFlowStack/AmplifyDomainUrl": [
           {
             "type": "aws:cdk:logicalId",
             "data": "AmplifyDomainUrl"
           }
         ],
-        "/SimpleAuctionFlowStack/UserPoolId": [
+        "/AuctionFlowStack/AmplifyDevDomainUrl": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AmplifyDevDomainUrl"
+          }
+        ],
+        "/AuctionFlowStack/UserPoolId": [
           {
             "type": "aws:cdk:logicalId",
             "data": "UserPoolId"
           }
         ],
-        "/SimpleAuctionFlowStack/UserPoolClientId": [
+        "/AuctionFlowStack/UserPoolClientId": [
           {
             "type": "aws:cdk:logicalId",
             "data": "UserPoolClientId"
           }
         ],
-        "/SimpleAuctionFlowStack/StorageBucketName": [
+        "/AuctionFlowStack/IdentityPoolId": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IdentityPoolId"
+          }
+        ],
+        "/AuctionFlowStack/CognitoIssuer": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CognitoIssuer"
+          }
+        ],
+        "/AuctionFlowStack/DatabaseHost": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DatabaseHost"
+          }
+        ],
+        "/AuctionFlowStack/DatabasePort": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DatabasePort"
+          }
+        ],
+        "/AuctionFlowStack/DatabaseName": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DatabaseName"
+          }
+        ],
+        "/AuctionFlowStack/StorageBucketName": [
           {
             "type": "aws:cdk:logicalId",
             "data": "StorageBucketName"
           }
         ],
-        "/SimpleAuctionFlowStack/CDKMetadata/Default": [
+        "/AuctionFlowStack/AmplifyBuildRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AmplifyBuildRole1497EA74"
+          }
+        ],
+        "/AuctionFlowStack/CDKMetadata/Default": [
           {
             "type": "aws:cdk:logicalId",
             "data": "CDKMetadata"
           }
         ],
-        "/SimpleAuctionFlowStack/BootstrapVersion": [
+        "/AuctionFlowStack/BootstrapVersion": [
           {
             "type": "aws:cdk:logicalId",
             "data": "BootstrapVersion"
           }
         ],
-        "/SimpleAuctionFlowStack/CheckBootstrapVersion": [
+        "/AuctionFlowStack/CheckBootstrapVersion": [
           {
             "type": "aws:cdk:logicalId",
             "data": "CheckBootstrapVersion"
           }
         ]
       },
-      "displayName": "SimpleAuctionFlowStack"
+      "displayName": "AuctionFlowStack"
     },
     "Tree": {
       "type": "cdk:tree",

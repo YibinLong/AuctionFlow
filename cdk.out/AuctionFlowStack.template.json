@@ -675,34 +675,15 @@
     "DBSubnetGroupDescription": "Subnet group for AuctionFlowDB database",
     "SubnetIds": [
      {
-      "Ref": "AuctionFlowVPCisolatedSubnet1Subnet0F6407E8"
+      "Ref": "AuctionFlowVPCprivateSubnet1Subnet2576F173"
      },
      {
-      "Ref": "AuctionFlowVPCisolatedSubnet2SubnetC2677418"
+      "Ref": "AuctionFlowVPCprivateSubnet2SubnetE5827D72"
      }
     ]
    },
    "Metadata": {
     "aws:cdk:path": "AuctionFlowStack/AuctionFlowDB/SubnetGroup/Default"
-   }
-  },
-  "AuctionFlowDBSecurityGroup52BD7985": {
-   "Type": "AWS::EC2::SecurityGroup",
-   "Properties": {
-    "GroupDescription": "Security group for AuctionFlowDB database",
-    "SecurityGroupEgress": [
-     {
-      "CidrIp": "0.0.0.0/0",
-      "Description": "Allow all outbound traffic by default",
-      "IpProtocol": "-1"
-     }
-    ],
-    "VpcId": {
-     "Ref": "AuctionFlowVPCE499B0FB"
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "AuctionFlowStack/AuctionFlowDB/SecurityGroup/Resource"
    }
   },
   "AuctionFlowDBSecretA40E1E52": {
@@ -755,14 +736,14 @@
     "CopyTagsToSnapshot": true,
     "DBInstanceClass": "db.t3.micro",
     "DBName": "auctionflow",
+    "DBParameterGroupName": "default.postgres15",
     "DBSubnetGroupName": {
      "Ref": "AuctionFlowDBSubnetGroup56319C2B"
     },
     "DeleteAutomatedBackups": false,
     "DeletionProtection": false,
-    "EnablePerformanceInsights": true,
     "Engine": "postgres",
-    "EngineVersion": "13.7",
+    "EngineVersion": "15.4",
     "MasterUserPassword": {
      "Fn::Join": [
       "",
@@ -788,17 +769,10 @@
      ]
     },
     "MaxAllocatedStorage": 100,
-    "PerformanceInsightsRetentionPeriod": 7,
+    "MultiAZ": true,
     "PubliclyAccessible": false,
     "StorageType": "gp2",
-    "VPCSecurityGroups": [
-     {
-      "Fn::GetAtt": [
-       "AuctionFlowDBSecurityGroup52BD7985",
-       "GroupId"
-      ]
-     }
-    ]
+    "VPCSecurityGroups": []
    },
    "UpdateReplacePolicy": "Delete",
    "DeletionPolicy": "Delete",
@@ -818,7 +792,7 @@
       }
      ]
     },
-    "BucketName": "auction-flow-storage-971422717446-677202",
+    "BucketName": "auction-flow-storage-971422717446-086613",
     "LifecycleConfiguration": {
      "Rules": [
       {
@@ -1177,7 +1151,7 @@
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/21SwW7bMAz9lt4VrXPRQ49xUhS5bEaS9TrQMuuosSVDohIEgv99lNXEwdATHx+fKD5KhSyKJ/n4AGe/UM1x0elaxh2BOgqm/kZUhYzvgxKrD/NerUQV6k6rXagNUuJmtLWBcA91hzM/c0vvrdJA2pqbOIHXTZXCL6A3IDzDRVROnxjOjTeG0DG+CvIkX9mSeNZDj4bEDlVwmi5vzoZhmuGeGIWyrdFkZfzj0VXWdknzHc4Nrtmq06n7XX1mNg0DviGxo3CNl3ENBDV43BhPYBSKbOQ21Lq8J65qHtVlt+vyenIUfmJ9DwZadDJmT0mYwx5ci3S3gpvg/wr3epKxDOqYb/lCOVSWn/Qy0znnI4b97O2gp9efAG+xs6E5A6mDjMsOXJ9qExgF9EOnPy7ToMthsls6tnIYhYZexq3NnyPFcRRb9DY4XtEqeLL9nLLi+1Ll7Ek36EpemeAvhcRftdWmTWd+BxoCOzW2Qfnpf5yKR/nzRT4/fHqtFy7wS/Uotzn+A0D8OcT4AgAA"
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/21STU/jMBD9LdxdLwRx4Ni0CPWyG7VdrmjiDKlpYkf2uFVl5b8zjilBiNO8efNmPB8uZFHcy9sbOPuFao6LTtcy7gjUUTD1GlEVMr4MSqzezEu1ElWoO612oTZIiZvR1gbCPdQdzvzMLb23SgNpa77ECTxtqmT+Aj0D4RkuonL6xHAuvDGEjvFVkDv59JbEvR56NDQKZVujycr436OrrO2S9Df87GwYxNVbdZrTv8dnZtMw0HRJ7Chc42VcA0ENHjfGExiFIneaa3LKuvxOXNU7VC6Psy6vmaPwE+t7MNCikzEtLguz2YNrkeYZxZfgZ4Rr3ctYBnXMr3yibCrLN7vMdPY5xfA8ezvo6bwT4C12NjRnIHWQcdmB61NsAqOAfuj022VqdDlM45aORzmMQkMv49bm6yc7jmKL3gbHK1oFT7afXVb8HqqcPekGXckrE/xnkPgvttq0KedfoCHwpMY2KN/9n1NxK+8e5cPNu9d64QJfqke5zfYDp0PT0NkCAAA="
    },
    "Metadata": {
     "aws:cdk:path": "AuctionFlowStack/CDKMetadata/Default"

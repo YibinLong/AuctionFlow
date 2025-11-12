@@ -84,8 +84,8 @@ export function calculateBuyersPremium(
     return calculateTieredBuyersPremium(subtotal, tiers);
   }
 
-  // Otherwise use flat rate
-  const premiumRate = rate ? new Decimal(rate) : defaultRate;
+  // Otherwise use flat rate (explicitly handle rate = 0)
+  const premiumRate = rate !== undefined ? new Decimal(rate) : defaultRate;
 
   if (premiumRate.lessThan(0) || premiumRate.greaterThan(1)) {
     throw new Error(`Invalid buyer's premium rate: ${rate}. Rate must be between 0 and 1.`);
@@ -142,7 +142,7 @@ export function calculateTax(
   rate?: number | string
 ): { amount: Decimal; appliedRate: Decimal; taxableAmount: Decimal } {
   const defaultRate = new Decimal(0.085); // 8.5% default
-  const taxRate = rate ? new Decimal(rate) : defaultRate;
+  const taxRate = rate !== undefined ? new Decimal(rate) : defaultRate;
 
   if (taxRate.lessThan(0) || taxRate.greaterThan(1)) {
     throw new Error(`Invalid tax rate: ${rate}. Rate must be between 0 and 1.`);
