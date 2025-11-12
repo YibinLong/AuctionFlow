@@ -40,7 +40,7 @@ export class PerformanceMonitor {
       const userAgent = req.headers.get('user-agent') || undefined;
       const ipAddress = req.headers.get('x-forwarded-for') ||
                        req.headers.get('x-real-ip') ||
-                       req.ip || undefined;
+                       'unknown';
 
       try {
         const response = await handler();

@@ -55,6 +55,7 @@ export class AuditLogger {
 
       // Include processing time in metadata if provided
       if (event.processing_time_ms) {
+        auditLog.metadata = auditLog.metadata || {};
         auditLog.metadata.processing_time_ms = event.processing_time_ms;
       }
 
