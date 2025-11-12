@@ -13,6 +13,7 @@ import { TransactionChart } from "@/components/charts/transaction-chart"
 import { SettlementsChart } from "@/components/charts/settlements-chart"
 import { ExportPanel } from "@/components/admin/export-panel"
 import { LegacyIntegrationPanel } from "@/components/admin/legacy-integration-panel"
+import { SuccessMetricsDashboard } from "@/components/admin/success-metrics-dashboard"
 import { LanguageSwitcher } from "@/components/ui/language-switcher"
 import {
   LayoutDashboard,
@@ -29,6 +30,7 @@ import {
   Users,
   FileText,
   RefreshCw,
+  Target,
 } from "lucide-react"
 
 // Mock data for admin dashboard
@@ -469,11 +471,12 @@ export function AdminDashboardContent() {
 
         {/* Enhanced Analytics Dashboard with Tabs */}
         <Tabs defaultValue="overview" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-6">
+          <TabsList className="grid w-full grid-cols-7">
             <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="revenue">Revenue Analytics</TabsTrigger>
+            <TabsTrigger value="revenue">Revenue</TabsTrigger>
             <TabsTrigger value="transactions">Transactions</TabsTrigger>
             <TabsTrigger value="settlements">Settlements</TabsTrigger>
+            <TabsTrigger value="success-metrics">Success Metrics</TabsTrigger>
             <TabsTrigger value="insights">AI Insights</TabsTrigger>
             <TabsTrigger value="legacy">Legacy Data</TabsTrigger>
           </TabsList>
@@ -669,6 +672,11 @@ export function AdminDashboardContent() {
                 </div>
               </CardContent>
             </Card>
+          </TabsContent>
+
+          {/* Success Metrics Tab */}
+          <TabsContent value="success-metrics" className="space-y-6">
+            <SuccessMetricsDashboard />
           </TabsContent>
 
           {/* Legacy Data Integration Tab */}
