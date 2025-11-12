@@ -17,7 +17,13 @@ export async function GET(request: NextRequest) {
           max_amount: null,
           rate: 0.10
         }
-      ],
+      ] as Array<{
+        id: string;
+        name: string;
+        min_amount: number;
+        max_amount: number | null;
+        rate: number;
+      }>,
       currency: 'USD'
     };
 
@@ -35,6 +41,7 @@ export async function GET(request: NextRequest) {
         rates = {
           buyers_premium_rate: parseFloat(rate.buyers_premium_rate),
           tax_rate: parseFloat(rate.tax_rate),
+          premium_tiers: rates.premium_tiers, // Keep default tiers
           currency: rate.currency || 'USD'
         };
       }
@@ -48,10 +55,10 @@ export async function GET(request: NextRequest) {
 
       if (tiers.length > 0) {
         rates.premium_tiers = tiers.map(tier => ({
-          id: tier.id,
-          name: tier.name,
+          id: String(tier.id),
+          name: String(tier.name),
           min_amount: parseFloat(tier.min_amount),
-          max_amount: tier.max_amount ? parseFloat(tier.max_amount) : null,
+          max_amount: tier.max_amount ? parseFloat(tier.max_amount) : null as null,
           rate: parseFloat(tier.rate)
         }));
       }

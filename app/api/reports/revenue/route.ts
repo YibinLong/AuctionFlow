@@ -125,7 +125,7 @@ async function calculateGrowthRates(startDate?: string | null, endDate?: string 
     // Get current period data
     const currentFilter = startDate && endDate
       ? `AND DATE(created_at) BETWEEN '${startDate}' AND '${endDate}'`
-      : `AND created_at >= DATE_SUB(CURRENT_DATE, INTERVAL 30 DAY)`;
+      : `AND created_at >= CURRENT_DATE - INTERVAL '30 days'`;
 
     // Get previous period data (same duration, before current period)
     let previousFilter = '';
@@ -135,7 +135,7 @@ async function calculateGrowthRates(startDate?: string | null, endDate?: string 
       const prevEnd = new Date(new Date(startDate).getTime() - (24 * 60 * 60 * 1000)).toISOString().split('T')[0];
       previousFilter = `AND DATE(created_at) BETWEEN '${prevStart}' AND '${prevEnd}'`;
     } else {
-      previousFilter = `AND created_at < DATE_SUB(CURRENT_DATE, INTERVAL 30 DAY) AND created_at >= DATE_SUB(CURRENT_DATE, INTERVAL 60 DAY)`;
+      previousFilter = `AND created_at < CURRENT_DATE - INTERVAL '30 days' AND created_at >= CURRENT_DATE - INTERVAL '60 days'`;
     }
 
     const currentPeriodQuery = `
@@ -234,7 +234,7 @@ async function getTopPerformingItems(startDate?: string | null, endDate?: string
     const topItemsQuery = `
       SELECT
         ai.title,
-        ai.lot_number,
+        ai.lot_id,
         COUNT(*) as sales_count,
         AVG(ii.quantity) as avg_quantity,
         SUM(ii.quantity * ii.unit_price) as total_sales,
@@ -242,9 +242,9 @@ async function getTopPerformingItems(startDate?: string | null, endDate?: string
       FROM payments p
       JOIN invoices i ON p.invoice_id = i.id
       JOIN invoice_items ii ON i.id = ii.invoice_id
-      JOIN auction_items ai ON ii.auction_item_id = ai.id
+      JOIN auction_items ai ON ii.item_id = ai.id
       WHERE p.status = 'completed' ${dateFilter}
-      GROUP BY ai.id, ai.title, ai.lot_number
+      GROUP BY ai.id, ai.title, ai.lot_id
       ORDER BY total_sales DESC
       LIMIT 10
     `;
@@ -253,7 +253,7 @@ async function getTopPerformingItems(startDate?: string | null, endDate?: string
 
     return result.map(row => ({
       title: row.title,
-      lotNumber: row.lot_number,
+      lotNumber: row.lot_id,
       salesCount: parseInt(row.sales_count || 0),
       avgQuantity: parseFloat(row.avg_quantity || 0),
       totalSales: parseFloat(row.total_sales || 0),

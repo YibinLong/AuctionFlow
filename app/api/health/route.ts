@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
   let healthIssues: string[] = [];
 
   try {
-    const healthCheck = {
+    const healthCheck: any = {
       status: 'healthy',
       timestamp: new Date().toISOString(),
       version: process.env.npm_package_version || '1.0.0',
@@ -94,18 +94,18 @@ export async function GET(request: NextRequest) {
 
     // Check system resources
     const memoryUsage = process.memoryUsage();
-    const memoryUsageMB = {
+    const memoryUsageMB: any = {
       rss: Math.round(memoryUsage.rss / 1024 / 1024),
       heapTotal: Math.round(memoryUsage.heapTotal / 1024 / 1024),
       heapUsed: Math.round(memoryUsage.heapUsed / 1024 / 1024),
       external: Math.round(memoryUsage.external / 1024 / 1024)
     };
 
+    memoryUsageMB.heap_usage_percent = Math.round((memoryUsageMB.heapUsed / memoryUsageMB.heapTotal) * 100);
     healthCheck.memory_usage = memoryUsageMB;
-    healthCheck.memory_usage.heap_usage_percent = Math.round((memoryUsageMB.heapUsed / memoryUsageMB.heapTotal) * 100);
 
     // Check for high memory usage
-    if (memoryUsageMB.heapUsagePercent > 90) {
+    if (memoryUsageMB.heap_usage_percent > 90) {
       healthStatus = 'degraded';
       healthIssues.push('High memory usage');
     }
