@@ -146,7 +146,7 @@ export async function POST(request: NextRequest) {
           quantity: 1,
           unit_price: parseFloat(ar.winning_bid.toString())
         })),
-        buyers_premium_rate: body.custom_rates?.buyers_premium_rate || parseFloat(ar.winning_bid.toString()),
+        buyers_premium_rate: body.custom_rates?.buyers_premium_rate || 0.10, // Default 10%
         tax_rate: body.custom_rates?.tax_rate || 0.085 // Default 8.5%
       };
 
@@ -180,7 +180,7 @@ export async function POST(request: NextRequest) {
       const invoice = invoiceResult.rows[0];
 
       // Create invoice items
-      for (const (index, ar) of auctionResults.entries()) {
+      for (const [index, ar] of auctionResults.entries()) {
         await client.query(
           `INSERT INTO invoice_items (
             id, invoice_id, item_id, lot_id, title, quantity, unit_price, total_price

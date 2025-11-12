@@ -253,7 +253,7 @@ export function validateCalculationInputs(inputs: CalculationInputs): { valid: b
       if (!item.lot_id) errors.push(`Item ${index + 1}: lot_id is required`);
       if (!item.title) errors.push(`Item ${index + 1}: title is required`);
       if (!item.quantity || item.quantity <= 0) errors.push(`Item ${index + 1}: quantity must be greater than 0`);
-      if (!item.unit_price || item.unit_price <= 0) errors.push(`Item ${index + 1}: unit_price must be greater than 0`);
+      if (!item.unit_price || parseFloat(item.unit_price.toString()) <= 0) errors.push(`Item ${index + 1}: unit_price must be greater than 0`);
     });
   }
 
