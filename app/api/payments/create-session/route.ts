@@ -6,7 +6,7 @@ import { CreatePaymentRequest } from '@/lib/types';
 
 // Initialize Stripe with secret key
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2024-10-28.acacia',
+  apiVersion: '2025-10-29.clover',
 });
 
 export async function POST(request: NextRequest) {
@@ -70,6 +70,10 @@ export async function POST(request: NextRequest) {
           product_data: {
             name: "Buyer's Premium",
             description: `${(parseFloat(invoice.buyers_premium_rate.toString()) * 100).toFixed(2)}% premium`,
+            metadata: {
+              invoice_id: invoice.id,
+              fee_type: 'buyers_premium'
+            } as any
           },
           unit_amount: Math.round(parseFloat(invoice.buyers_premium_amount.toString()) * 100),
         },
@@ -85,6 +89,10 @@ export async function POST(request: NextRequest) {
           product_data: {
             name: 'Sales Tax',
             description: `${(parseFloat(invoice.tax_rate.toString()) * 100).toFixed(2)}% tax`,
+            metadata: {
+              invoice_id: invoice.id,
+              fee_type: 'tax'
+            } as any
           },
           unit_amount: Math.round(parseFloat(invoice.tax_amount.toString()) * 100),
         },
@@ -144,7 +152,7 @@ export async function POST(request: NextRequest) {
     // Log payment attempt
     try {
       await auditLogger.logPaymentAttempted(
-        session.payment_intent || session.id,
+        typeof session.payment_intent === 'string' ? session.payment_intent : session.id,
         invoice.id,
         invoice.buyer_id,
         {

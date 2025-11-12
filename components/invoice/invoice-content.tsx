@@ -21,6 +21,7 @@ interface InvoiceData {
   currency: string;
   due_date: string;
   created_at: string;
+  updated_at?: string;
   items: Array<{
     id: string;
     lot_id: string;
@@ -443,7 +444,7 @@ export function InvoiceContent({ invoiceId }: InvoiceContentProps) {
                 <div>
                   <p className="text-gray-600">Payment Date</p>
                   <p className="font-semibold text-gray-900">
-                    {new Date(invoice.updated_at).toLocaleString()}
+                    {invoice.updated_at ? new Date(invoice.updated_at).toLocaleString() : 'N/A'}
                   </p>
                 </div>
                 <div>
