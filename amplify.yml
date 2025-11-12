@@ -5,6 +5,7 @@ frontend:
       commands:
         - npm ci
         - npm run lint
+        - npm run test -- --passWithNoTests
     build:
       commands:
         - npm run build
