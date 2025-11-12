@@ -190,7 +190,7 @@ export async function GET(request: NextRequest) {
       metadata: {
         timeframe,
         user_agent: request.headers.get('user-agent'),
-        ip_address: request.headers.get('x-forwarded-for') || request.ip
+        ip_address: request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown'
       }
     });
 

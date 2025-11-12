@@ -18,7 +18,9 @@ import {
   Target,
   BarChart3,
   Zap,
-  Shield
+  Shield,
+  CreditCard,
+  FileText
 } from "lucide-react"
 
 interface SuccessMetrics {

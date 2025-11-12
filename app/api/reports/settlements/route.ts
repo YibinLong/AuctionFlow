@@ -31,7 +31,7 @@ export async function GET(request: NextRequest) {
       params.push(auctionId);
     }
     if (consignorId) {
-      filters.push(`ai.consignor_id = $${params.length + 1}`);
+      filters.push(`ai.seller_id = $${params.length + 1}`);
       params.push(consignorId);
     }
     if (status) {
@@ -58,8 +58,7 @@ export async function GET(request: NextRequest) {
         ar.created_at,
         ar.updated_at,
         c.id as consignor_id,
-        c.first_name as consignor_first_name,
-        c.last_name as consignor_last_name,
+        c.name as consignor_name,
         c.company_name,
         c.email as consignor_email,
         COUNT(ai.id) as item_count,
@@ -67,10 +66,10 @@ export async function GET(request: NextRequest) {
         AVG(ar.final_bid_amount) as avg_hammer_price,
         COUNT(CASE WHEN ar.settlement_status = 'settled' THEN 1 END) as settled_items
       FROM auction_results ar
-      JOIN auction_items ai ON ar.auction_item_id = ai.id
-      LEFT JOIN users c ON ai.consignor_id = c.id
+      JOIN auction_items ai ON ar.item_id = ai.id
+      LEFT JOIN users c ON ai.seller_id = c.id
       ${whereClause}
-      GROUP BY ar.id, c.id
+      GROUP BY ar.id, c.id, c.name, c.company_name, c.email
       ORDER BY ar.created_at DESC
       LIMIT $${params.length + 1} OFFSET $${params.length + 2}
     `;
@@ -82,8 +81,8 @@ export async function GET(request: NextRequest) {
     const countQuery = `
       SELECT COUNT(DISTINCT ar.id) as total
       FROM auction_results ar
-      JOIN auction_items ai ON ar.auction_item_id = ai.id
-      LEFT JOIN users c ON ai.consignor_id = c.id
+      JOIN auction_items ai ON ar.item_id = ai.id
+      LEFT JOIN users c ON ai.seller_id = c.id
       ${whereClause}
     `;
 
@@ -142,8 +141,8 @@ export async function GET(request: NextRequest) {
         SUM(ar.net_proceeds) as total_net_proceeds,
         AVG(ar.commission_rate) as avg_commission_rate
       FROM auction_results ar
-      JOIN auction_items ai ON ar.auction_item_id = ai.id
-      LEFT JOIN users c ON ai.consignor_id = c.id
+      JOIN auction_items ai ON ar.item_id = ai.id
+      LEFT JOIN users c ON ai.seller_id = c.id
       ${whereClause}
       GROUP BY c.id
       ORDER BY total_net_proceeds DESC

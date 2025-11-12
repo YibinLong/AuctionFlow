@@ -598,7 +598,7 @@ export async function performAutomatedAccuracyTest(): Promise<{
       test_count: testCases.length,
       passed_tests: testResults.filter(r => r.passed).length,
       failed_tests: testResults.filter(r => !r.passed).length,
-      test_results
+      test_results: testResults
     }
   }).catch(error => {
     console.warn('Failed to log accuracy test:', error);

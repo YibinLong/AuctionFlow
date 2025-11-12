@@ -1,6 +1,33 @@
 import NextAuth, { type NextAuthOptions } from 'next-auth';
 import CognitoProvider from 'next-auth/providers/cognito';
 
+declare module 'next-auth' {
+  interface Session {
+    user: {
+      id: string;
+      accessToken: string;
+      role: string;
+      name?: string | null;
+      email?: string | null;
+      image?: string | null;
+    };
+  }
+
+  interface User {
+    id: string;
+    accessToken?: string;
+    role?: string;
+  }
+}
+
+declare module 'next-auth/jwt' {
+  interface JWT {
+    id: string;
+    accessToken?: string;
+    role?: string;
+  }
+}
+
 export const authOptions: NextAuthOptions = {
   providers: [
     CognitoProvider({
@@ -18,15 +45,18 @@ export const authOptions: NextAuthOptions = {
         token.idToken = account.id_token;
         token.refreshToken = account.refresh_token;
         token.expiresAt = account.expires_at;
+        token.id = user.id || token.sub || '';
       }
       return token;
     },
 
     async session({ session, token }) {
       // Send properties to the client
-      session.user.id = token.sub!;
-      session.user.accessToken = token.accessToken as string;
-      session.user.role = token['cognito:groups']?.includes('admin') ? 'admin' : 'buyer';
+      if (session.user) {
+        session.user.id = token.id || token.sub || '';
+        session.user.accessToken = token.accessToken as string;
+        session.user.role = (Array.isArray(token['cognito:groups']) && token['cognito:groups'].includes('admin')) ? 'admin' : 'buyer';
+      }
       return session;
     },
   },

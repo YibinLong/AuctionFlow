@@ -55,10 +55,8 @@ export async function GET(request: NextRequest) {
         i.tax_amount,
         i.grand_total,
         i.status as invoice_status,
-        u.first_name,
-        u.last_name,
+        u.name,
         u.email,
-        u.phone,
         COUNT(ii.id) as item_count,
         SUM(ii.quantity * ii.unit_price) as items_total
       FROM payments p
@@ -66,7 +64,7 @@ export async function GET(request: NextRequest) {
       LEFT JOIN users u ON i.buyer_id = u.id
       LEFT JOIN invoice_items ii ON i.id = ii.invoice_id
       ${whereClause}
-      GROUP BY p.id, i.id, u.id
+      GROUP BY p.id, i.id, u.id, u.name, u.email
       ORDER BY p.created_at DESC
       LIMIT $${params.length + 1} OFFSET $${params.length + 2}
     `;
